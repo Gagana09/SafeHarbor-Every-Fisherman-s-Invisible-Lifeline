@@ -1,0 +1,68 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Indian EEZ Boundary",
+        "description": "Official Indian Exclusive Economic Zone",
+        "landmarks": {
+          "77.53,8.46": "Cape Comorin",
+          "75.38,11.87": "Mangalore",
+          "72.83,15.42": "Goa",
+          "72.78,18.97": "Mumbai",
+          "68.70,23.00": "Gulf of Kutch",
+          "68.32,23.58": "India-Pakistan Maritime Border",
+          "80.19,13.05": "Chennai",
+          "80.35,13.25": "Pulicat",
+          "81.50,16.00": "Andhra Coast",
+          "83.30,17.70": "Visakhapatnam",
+          "85.17,19.82": "Odisha Coast",
+          "88.10,21.60": "West Bengal",
+          "89.08,21.64": "India-Bangladesh Maritime Border",
+          "91.83,21.91": "Bangladesh Border",
+          "92.37,14.08": "Andaman & Nicobar",
+          "93.80,10.50": "Little Andaman",
+          "93.92,6.82": "Great Nicobar"
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [77.53, 8.46],    // Cape Comorin
+          [75.38, 11.87],   // Mangalore
+          [72.83, 15.42],   // Goa
+          [72.78, 18.97],   // Mumbai
+          [68.70, 23.00],   // Gulf of Kutch
+          [68.32, 23.58],   // India-Pakistan Maritime Border
+          [71.00, 22.12],   // Western EEZ
+          [73.00, 20.50],
+          [75.00, 18.50],
+          [77.00, 16.50],
+          [78.50, 15.00],
+          [80.19, 13.05],   // Chennai
+          [80.35, 13.25],   // Pulicat
+          [81.50, 16.00],   // Andhra Coast
+          [83.30, 17.70],   // Visakhapatnam
+          [85.17, 19.82],   // Odisha Coast
+          [88.10, 21.60],   // West Bengal
+          [89.08, 21.64],   // India-Bangladesh Maritime Border
+          [91.83, 21.91],   // Bangladesh Border
+          [92.37, 14.08],   // Andaman & Nicobar
+          [93.80, 10.50],   // Little Andaman
+          [93.92, 6.82],    // Great Nicobar
+          [93.50, 6.75],    // Southern EEZ
+          [92.00, 6.50],
+          [90.00, 6.30],
+          [88.00, 6.50],
+          [86.00, 6.75],
+          [84.00, 7.00],
+          [82.00, 7.25],
+          [80.00, 7.50],
+          [78.50, 7.75],
+          [77.53, 8.46]     // Back to Cape Comorin
+        ]]
+      }
+    }
+  ]
+} 

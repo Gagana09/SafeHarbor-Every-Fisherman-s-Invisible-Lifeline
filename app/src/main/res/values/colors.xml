@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Ocean theme colors -->
+    <color name="ocean_blue">#2196F3</color>
+    <color name="deep_ocean_blue">#1976D2</color>
+    <color name="light_ocean_blue">#BBDEFB</color>
+    <color name="very_light_blue">#E3F2FD</color>
+    <color name="accent_blue">#03A9F4</color>
+    <color name="ocean_gray">#78909C</color>
+    
+    <!-- Standard colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    
+    <!-- Alert colors -->
+    <color name="warning_red">#EF5350</color>
+    <color name="warning_red_transparent">#E6EF5350</color>
+    <color name="warning_background">#FFEBEE</color>
 </resources>
