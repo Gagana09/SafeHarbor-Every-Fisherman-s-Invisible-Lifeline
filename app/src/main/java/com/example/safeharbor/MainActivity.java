@@ -12,6 +12,7 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
     private static final long LOCATION_UPDATE_INTERVAL = 5000; // 5 seconds
-    private static final double WARNING_DISTANCE_KM = 35; // 24 kilometers
+    private static final double WARNING_DISTANCE_KM = 35;
     private static final String TAG = "SafeHarbor";
     private static final String PREFS_NAME = "SafeHarborPrefs";
     private static final String KEY_LAST_LAT = "last_latitude";
@@ -72,31 +74,97 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        try {
         super.onCreate(savedInstanceState);
+            Log.d(TAG, "onCreate started");
+            
         setContentView(R.layout.activity_main);
+            Log.d(TAG, "Layout inflated");
 
-        initializeViews();
-        setupLocation();
-        setupAlert();
-        loadBoundaries();
+            initializeViews();
+            Log.d(TAG, "Views initialized");
+
+            setupLocation();
+            Log.d(TAG, "Location client setup");
+
+            setupAlert();
+            Log.d(TAG, "Alert setup completed");
+
+            loadBoundaries();
+            Log.d(TAG, "Border data loaded");
+
+            checkLocationPermission();
+            Log.d(TAG, "Location permission check completed");
+
+        } catch (Exception e) {
+            Log.e(TAG, "Error in onCreate", e);
+            Toast.makeText(this, "App initialization failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     private void initializeViews() {
-        tvLocation = findViewById(R.id.tvLocation);
-        tvCountry = findViewById(R.id.tvCountry);
-        tvDistance = findViewById(R.id.tvDistance);
-        tvWarning = findViewById(R.id.tvWarning);
-        alertLayout = findViewById(R.id.alertLayout);
-        distanceWarningText = findViewById(R.id.distanceWarningText);
-        btnDismissAlert = findViewById(R.id.btnDismissAlert);
-        offlineBar = findViewById(R.id.offlineBar);
-        tvOfflineStatus = findViewById(R.id.offlineText);
+        try {
+            Log.d(TAG, "Starting view initialization");
+            
+            // Initialize basic views
+            tvLocation = findViewById(R.id.tvLocation);
+            tvCountry = findViewById(R.id.tvCountry);
+            tvDistance = findViewById(R.id.tvDistance);
+            offlineBar = findViewById(R.id.offlineBar);
+            tvOfflineStatus = findViewById(R.id.offlineText);
+            alertLayout = findViewById(R.id.alertLayout);
+            distanceWarningText = findViewById(R.id.distanceWarningText);
+            btnDismissAlert = findViewById(R.id.btnDismissAlert);
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+            // Log each view initialization
+            Log.d(TAG, "tvLocation: " + (tvLocation != null));
+            Log.d(TAG, "tvCountry: " + (tvCountry != null));
+            Log.d(TAG, "tvDistance: " + (tvDistance != null));
+            Log.d(TAG, "offlineBar: " + (offlineBar != null));
+            Log.d(TAG, "tvOfflineStatus: " + (tvOfflineStatus != null));
+            Log.d(TAG, "alertLayout: " + (alertLayout != null));
+            Log.d(TAG, "distanceWarningText: " + (distanceWarningText != null));
+            Log.d(TAG, "btnDismissAlert: " + (btnDismissAlert != null));
+
+            // Check for null views
+            if (tvLocation == null || tvCountry == null || tvDistance == null || 
+                offlineBar == null || tvOfflineStatus == null ||
+                alertLayout == null || distanceWarningText == null || btnDismissAlert == null) {
+                String errorMessage = "Missing views: ";
+                if (tvLocation == null) errorMessage += "tvLocation ";
+                if (tvCountry == null) errorMessage += "tvCountry ";
+                if (tvDistance == null) errorMessage += "tvDistance ";
+                if (offlineBar == null) errorMessage += "offlineBar ";
+                if (tvOfflineStatus == null) errorMessage += "tvOfflineStatus ";
+                if (alertLayout == null) errorMessage += "alertLayout ";
+                if (distanceWarningText == null) errorMessage += "distanceWarningText ";
+                if (btnDismissAlert == null) errorMessage += "btnDismissAlert ";
+                
+                Log.e(TAG, errorMessage);
+                Toast.makeText(this, "Error: " + errorMessage, Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            // Initialize vibrator
+            vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            if (vibrator == null) {
+                Log.w(TAG, "Vibrator service not available");
+            }
+            
+            // Setup alert button
+            btnDismissAlert.setOnClickListener(v -> {
+                try {
+                    hideAlert();
+                } catch (Exception e) {
+                    Log.e(TAG, "Error in alert button click", e);
+                }
+            });
+            
+            Log.d(TAG, "All views initialized successfully");
+        } catch (Exception e) {
+            Log.e(TAG, "Error in initializeViews", e);
+            Toast.makeText(this, "Error initializing views: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     private void setupLocation() {
@@ -431,31 +499,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showAlert(double distance) {
-        if (!isAlertShowing) {
-            isAlertShowing = true;
-            alertLayout.setVisibility(View.VISIBLE);
-            distanceWarningText.setText(String.format("Warning: You are %.2f km from international waters!", distance));
+        if (alertLayout.getVisibility() == View.VISIBLE) return;
 
-            if (vibrator != null && vibrator.hasVibrator()) {
-                vibrator.vibrate(VibrationEffect.createWaveform(
-                    new long[]{0, 500, 500, 500, 500, 500},
-                    new int[]{0, 255, 0, 255, 0, 255},
-                    -1
-                ));
-            }
+        // Use system default notification sound
+        mediaPlayer = MediaPlayer.create(this, android.provider.Settings.System.DEFAULT_NOTIFICATION_URI);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
 
-            if (mediaPlayer != null) {
-                mediaPlayer.start();
-            }
-
-            showNotification("Maritime Border Alert", 
-                String.format("You are %.2f km from international waters!", distance));
+        // Vibrate
+        if (vibrator != null) {
+            vibrator.vibrate(VibrationEffect.createWaveform(new long[]{0, 500, 500}, 0));
         }
+
+        String warningText = String.format("Warning: You are %.2f nautical miles from international waters!", distance);
+        distanceWarningText.setText(warningText);
+        alertLayout.setVisibility(View.VISIBLE);
     }
 
     private void showNotification(String title, String message) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "maritime_alerts")
-            .setSmallIcon(android.R.drawable.ic_dialog_alert)
+            .setSmallIcon(R.drawable.ic_alert)
             .setContentTitle(title)
             .setContentText(message)
             .setPriority(NotificationCompat.PRIORITY_HIGH)

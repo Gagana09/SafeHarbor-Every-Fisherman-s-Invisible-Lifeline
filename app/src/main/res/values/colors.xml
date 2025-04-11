@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Ocean theme colors -->
-    <color name="ocean_blue">#2196F3</color>
-    <color name="deep_ocean_blue">#1976D2</color>
-    <color name="light_ocean_blue">#BBDEFB</color>
+    <color name="ocean_blue">#1E88E5</color>
+    <color name="deep_ocean_blue">#1565C0</color>
+    <color name="light_ocean_blue">#64B5F6</color>
     <color name="very_light_blue">#E3F2FD</color>
-    <color name="accent_blue">#03A9F4</color>
+    <color name="accent_blue">#00BCD4</color>
     <color name="ocean_gray">#78909C</color>
+
+    <!-- Material Design colors -->
+    <color name="primary">#1E88E5</color>
+    <color name="primary_dark">#1565C0</color>
+    <color name="primary_light">#64B5F6</color>
+    <color name="accent">#00BCD4</color>
+    <color name="background">#E3F2FD</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="warning">#FF5252</color>
+    <color name="warning_light">#FFCDD2</color>
+    <color name="success">#4CAF50</color>
+    <color name="divider">#BDBDBD</color>
     
     <!-- Standard colors -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="text_primary">#212121</color>
-    <color name="text_secondary">#757575</color>
     
     <!-- Alert colors -->
     <color name="warning_red">#EF5350</color>
