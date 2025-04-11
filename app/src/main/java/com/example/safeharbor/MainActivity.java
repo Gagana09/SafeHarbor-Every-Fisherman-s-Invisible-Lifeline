@@ -2,10 +2,12 @@ package com.example.safeharbor;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -75,10 +77,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
-        super.onCreate(savedInstanceState);
+            super.onCreate(savedInstanceState);
             Log.d(TAG, "onCreate started");
             
-        setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_main);
             Log.d(TAG, "Layout inflated");
 
             initializeViews();
@@ -95,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
 
             checkLocationPermission();
             Log.d(TAG, "Location permission check completed");
+
+            // Start the background service
+            startLocationMonitoringService();
 
         } catch (Exception e) {
             Log.e(TAG, "Error in onCreate", e);
@@ -629,6 +634,21 @@ public class MainActivity extends AppCompatActivity {
         }
         if (vibrator != null) {
             vibrator.cancel();
+        }
+    }
+
+    private void startLocationMonitoringService() {
+        try {
+            Intent serviceIntent = new Intent(this, LocationMonitoringService.class);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(serviceIntent);
+            } else {
+                startService(serviceIntent);
+            }
+            Log.d(TAG, "Location monitoring service started");
+        } catch (Exception e) {
+            Log.e(TAG, "Error starting location monitoring service", e);
+            Toast.makeText(this, "Error starting background monitoring", Toast.LENGTH_SHORT).show();
         }
     }
 }
