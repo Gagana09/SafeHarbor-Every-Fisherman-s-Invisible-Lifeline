@@ -4,42 +4,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary">
+    android:background="@drawable/wave_background">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/boatImage"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:src="@drawable/ic_launcher_foreground"
-        app:layout_constraintBottom_toTopOf="@id/textView"
+        android:src="@drawable/ic_boat"
+        app:layout_constraintBottom_toTopOf="@id/titleText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Safe Harbor"
-        android:textColor="@color/primary_light"
-        android:textSize="24sp"
+        android:text="SafeHarbour"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
         android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"
         app:layout_constraintBottom_toTopOf="@id/subtitleText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView" />
+        app:layout_constraintTop_toBottomOf="@id/boatImage" />
 
     <TextView
         android:id="@+id/subtitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Maritime Border Alert System"
-        android:textColor="@color/primary_light"
-        android:textSize="16sp"
-        android:fontFamily="sans-serif"
-        android:layout_marginBottom="8dp"
+        android:text="Because borders aren't always visible"
+        android:textColor="#E3F2FD"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@id/taglineText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -48,12 +49,12 @@
         android:id="@+id/taglineText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Keeping You Safe at Sea"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:fontFamily="sans-serif-light"
-        android:alpha="0.9"
-        android:layout_marginBottom="32dp"
+        android:text="Keeping you safe at sea"
+        android:textColor="#B3E5FC"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif-medium"
+        android:alpha="0.95"
+        android:layout_marginBottom="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

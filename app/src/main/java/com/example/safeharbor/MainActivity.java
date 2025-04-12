@@ -27,6 +27,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.safeharbor.service.BorderMonitoringService;
+import com.example.safeharbor.service.NetworkMonitorService;
+import com.example.safeharbor.service.SOSService;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -98,8 +101,25 @@ public class MainActivity extends AppCompatActivity {
             checkLocationPermission();
             Log.d(TAG, "Location permission check completed");
 
+            // Start network monitoring service
+            startService(new Intent(this, NetworkMonitorService.class));
+
+            // Initialize SOS button
+            Button sosButton = findViewById(R.id.sosButton);
+            sosButton.setOnClickListener(v -> triggerSOS());
+
+            // Initialize emergency contacts button
+            Button emergencyContactsButton = findViewById(R.id.emergencyContactsButton);
+            emergencyContactsButton.setOnClickListener(v -> {
+                Intent intent = new Intent(this, EmergencyContactsActivity.class);
+                startActivity(intent);
+            });
+
             // Start the background service
             startLocationMonitoringService();
+
+            // Start border monitoring service
+            startBorderMonitoring();
 
         } catch (Exception e) {
             Log.e(TAG, "Error in onCreate", e);
@@ -518,7 +538,29 @@ public class MainActivity extends AppCompatActivity {
 
         String warningText = String.format("Warning: You are %.2f nautical miles from international waters!", distance);
         distanceWarningText.setText(warningText);
+
+        // Show overlay with fade animation
+        View overlay = findViewById(R.id.alertOverlay);
+        overlay.setAlpha(0f);
+        overlay.setVisibility(View.VISIBLE);
+        overlay.animate()
+                .alpha(1f)
+                .setDuration(300)
+                .start();
+
+        // Show alert with fade and scale animation
+        alertLayout.setAlpha(0f);
+        alertLayout.setScaleX(0.8f);
+        alertLayout.setScaleY(0.8f);
         alertLayout.setVisibility(View.VISIBLE);
+        alertLayout.animate()
+                .alpha(1f)
+                .scaleX(1f)
+                .scaleY(1f)
+                .setDuration(300)
+                .start();
+
+        isAlertShowing = true;
     }
 
     private void showNotification(String title, String message) {
@@ -538,7 +580,23 @@ public class MainActivity extends AppCompatActivity {
     private void hideAlert() {
         if (isAlertShowing) {
             isAlertShowing = false;
-            alertLayout.setVisibility(View.GONE);
+
+            // Hide overlay with fade animation
+            View overlay = findViewById(R.id.alertOverlay);
+            overlay.animate()
+                    .alpha(0f)
+                    .setDuration(200)
+                    .withEndAction(() -> overlay.setVisibility(View.GONE))
+                    .start();
+
+            // Hide alert with fade and scale animation
+            alertLayout.animate()
+                    .alpha(0f)
+                    .scaleX(0.8f)
+                    .scaleY(0.8f)
+                    .setDuration(200)
+                    .withEndAction(() -> alertLayout.setVisibility(View.GONE))
+                    .start();
 
             if (vibrator != null) {
                 vibrator.cancel();
@@ -650,5 +708,17 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "Error starting location monitoring service", e);
             Toast.makeText(this, "Error starting background monitoring", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void triggerSOS() {
+        Intent sosIntent = new Intent(this, SOSService.class);
+        sosIntent.setAction("SEND_SOS");
+        startService(sosIntent);
+        Toast.makeText(this, "Sending SOS alert...", Toast.LENGTH_LONG).show();
+    }
+
+    private void startBorderMonitoring() {
+        Intent monitoringIntent = new Intent(this, BorderMonitoringService.class);
+        startService(monitoringIntent);
     }
 }

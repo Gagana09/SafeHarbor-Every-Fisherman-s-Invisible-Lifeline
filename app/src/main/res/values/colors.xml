@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Ocean theme colors -->
-    <color name="ocean_blue">#1E88E5</color>
-    <color name="deep_ocean_blue">#1565C0</color>
-    <color name="light_ocean_blue">#64B5F6</color>
-    <color name="very_light_blue">#E3F2FD</color>
-    <color name="accent_blue">#00BCD4</color>
-    <color name="ocean_gray">#78909C</color>
+    <color name="deep_ocean">#003B73</color>
+    <color name="ocean_blue">#0074B7</color>
+    <color name="light_ocean">#60A3D9</color>
+    <color name="wave_crest">#BFD7ED</color>
+    <color name="sand">#F2D0A4</color>
+    <color name="coral">#FF8C69</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="warning_red">#FF4444</color>
+    <color name="success_green">#4CAF50</color>
 
     <!-- Material Design colors -->
-    <color name="primary">#1E88E5</color>
+    <color name="primary">#1976D2</color>
     <color name="primary_dark">#1565C0</color>
     <color name="primary_light">#64B5F6</color>
     <color name="accent">#00BCD4</color>
-    <color name="background">#E3F2FD</color>
+    <color name="background">#F5F5F5</color>
     <color name="surface">#FFFFFF</color>
     <color name="text_primary">#212121</color>
     <color name="text_secondary">#757575</color>
@@ -22,12 +26,11 @@
     <color name="success">#4CAF50</color>
     <color name="divider">#BDBDBD</color>
     
-    <!-- Standard colors -->
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
-    
     <!-- Alert colors -->
-    <color name="warning_red">#EF5350</color>
     <color name="warning_red_transparent">#E6EF5350</color>
     <color name="warning_background">#FFEBEE</color>
+
+    <color name="secondary">#FFA000</color>
+    <color name="secondary_dark">#FF8F00</color>
+    <color name="error">#B00020</color>
 </resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/demoMapLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Static Map Image -->
+    <ImageView
+        android:id="@+id/indiaMap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/img_1"
+        android:scaleType="fitXY" />
+
+    <!-- Location Pin (fake) -->
+    <ImageView
+        android:id="@+id/pinIcon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/img_2"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>
