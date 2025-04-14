@@ -15,7 +15,7 @@ Small-scale fishermen often lack awareness of maritime boundaries, especially wh
 
 SafeHarbor uses GPS data and vibration alerts to notify fishermen when they're nearing maritime boundaries. It works offline, requires no internet or complex hardware, and is designed to be both affordable and reliable.
 
-![Dashboard](Screenshots/MainPage.png)
+![Dashboard](Screenshots/MainPage.jpg)
 
 ---
 
