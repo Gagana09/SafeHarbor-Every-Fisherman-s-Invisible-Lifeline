@@ -1,4 +1,4 @@
-# SafeHarbor  
+# SafeHarbor  - Every fisherman's lifeline at sea
 A Maritime Alert App for Coastal Fishermen
 
 SafeHarbor is a lightweight mobile application designed to protect small-scale fishermen from unintentionally crossing maritime borders. With offline functionality and real-time vibration alerts, the app acts as a silent guardian at sea.
