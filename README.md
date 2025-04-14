@@ -15,14 +15,16 @@ Small-scale fishermen often lack awareness of maritime boundaries, especially wh
 
 SafeHarbor uses GPS data and vibration alerts to notify fishermen when they're nearing maritime boundaries. It works offline, requires no internet or complex hardware, and is designed to be both affordable and reliable.
 
+![Dashboard](Screenshots/MainPage.png)
+
 ---
 
 ## Features
 
 - **Offline Alerts:** Works without internet using preloaded coordinates.  
 - **GPS Boundary Monitoring:** Detects proximity to international maritime borders.  
-- **Vibration Warnings:** Sends real-time haptic feedback as the user nears unsafe waters.  
-- **Battery-Friendly:** Optimized for long fishing hours with minimal power usage.  
+- **Vibration/Audio Warnings:** Sends real-time haptic feedback as the user nears unsafe waters.  
+- **Background services:** Works in the background, tracking location and sending alerts   
 - **Low-Cost Deployment:** Designed for affordability and ease of use.  
 
 ---
@@ -32,7 +34,7 @@ SafeHarbor uses GPS data and vibration alerts to notify fishermen when they're n
 
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/yourusername/safeharbor.git
+   git clone https://github.com/Gagana09/SafeHarbor-Every-Fisherman-s-Invisible-Lifeline.git
    ```
 2. Open the repository on Android Studio.
 3. Connect an Android device or Emulator.
